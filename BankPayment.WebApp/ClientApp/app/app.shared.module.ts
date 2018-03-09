@@ -7,11 +7,14 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { CommonService } from './shared/common.service';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent,
+        PaymentComponent,
         HomeComponent
     ],
     imports: [
@@ -21,8 +24,12 @@ import { HomeComponent } from './components/home/home.component';
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
+            { path: 'payment', component: PaymentComponent },
             { path: '**', redirectTo: 'home' }
         ])
+    ],
+    providers: [
+        CommonService
     ]
 })
 export class AppModuleShared {

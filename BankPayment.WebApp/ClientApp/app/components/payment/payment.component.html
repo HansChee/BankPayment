@@ -1,0 +1,16 @@
+﻿<div class="col-md-12 payment-container">
+    <div class="col-md-12 text-center payment-title">Payment Details</div>
+    <div class="col-md-5 col-sm-2 text-right payment-label">BSB:</div>
+    <div class="col-md-7 col-sm-10"><input type="text" [(ngModel)]="paymentInfo.BSB" /></div>
+    <div class="col-md-5 col-sm-4 text-right payment-label">Account Number:</div>
+    <div class="col-md-7 col-sm-8"><input type="text" [(ngModel)]="paymentInfo.AccountNumber" /></div>
+    <div class="col-md-5 col-sm-2 text-right payment-label">Account Name:</div>
+    <div class="col-md-7 col-sm-10"><input type="text" [(ngModel)]="paymentInfo.AccountName" /></div>
+    <div class="col-md-5 col-sm-2 text-right payment-label">Reference:</div>
+    <div class="col-md-7 col-sm-10"><input type="text" [(ngModel)]="paymentInfo.Reference" /></div>
+    <div class="col-md-5 col-sm-2 text-right payment-label">Amount:</div>
+    <div class="col-md-7 col-sm-10"><input type="text" [(ngModel)]="paymentInfo.Amount" /></div>
+    <div class="col-md-12">
+        <button id="btnSubmit" (click)="submitPayment()">Submit</button>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+﻿.payment-container {
+}
+
+    .payment-container input[type=text] {
+        height: 24px;
+        margin: 5px 10px;
+    }
+
+.payment-title {
+    padding: 5px;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.payment-label {
+    padding: 5px 0;
+}
