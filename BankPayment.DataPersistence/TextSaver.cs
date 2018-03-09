@@ -1,16 +1,15 @@
 ﻿using BankPayment.Models;
+using BankPayment.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Configuration;
-using BankPayment.Utility;
 
 namespace BankPayment.DataPersistence
 {
     public class TextSaver : ISaver
     {
-        static string path = ConfigurationManager.AppSettings["filePath"];
+        static string path = ConfigurationHelper.GetSetting("filePath");
         //static string path = @"/Uploaded";
 
         public BpActionResult SavePaymentInfo(PaymentInfo paymentInfo)
@@ -23,22 +22,33 @@ namespace BankPayment.DataPersistence
             try
             {
                 string fileName = Guid.NewGuid().ToString();
-                if (!Directory.Exists(path))
+                if (!String.IsNullOrEmpty(path))
                 {
-                    Directory.CreateDirectory(path);
-                }
-                if (!File.Exists($"{path}{fileName}.txt"))
-                {
-                    string text = JsonConvert.SerializeObject(paymentInfo);
-                    text = SecurityHelper.Encrypt(text, fileName);
-                    File.WriteAllText($"{path}/{fileName}.txt", text);
-                }
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    if (!File.Exists($"{path}{fileName}.txt"))
+                    {
+                        string text = JsonConvert.SerializeObject(paymentInfo);
+                        text = SecurityHelper.Encrypt(text, fileName);
+                        File.WriteAllText($"{path}/{fileName}.txt", text);
+                    }
 
-                result = new BpActionResult
+                    result = new BpActionResult
+                    {
+                        Success = true,
+                        Information = new List<string> { "Winner winner, chicken dinner." }
+                    };
+                }
+                else
                 {
-                    Success = true,
-                    Information = new List<string> { "Winner winner, chicken dinner." }
-                };
+                    result = new BpActionResult
+                    {
+                        Success = false,
+                        Information = new List<string> { "Upload Folder Setting Missing" }
+                    };
+                }
             }
             catch (Exception ex)
             {

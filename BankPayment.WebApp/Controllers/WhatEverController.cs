@@ -1,5 +1,7 @@
 ﻿using BankPayment.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace BankPayment.WebApp.Controllers
 {
@@ -21,6 +23,7 @@ namespace BankPayment.WebApp.Controllers
         [HttpPost("[action]")]
         public PaymentSaveResponse SavePayment([FromBody]PaymentInfo paymentInfo)
         {
+            string folder = Directory.GetCurrentDirectory();
             var result = saver.SavePaymentInfo(paymentInfo);
             PaymentSaveResponse psr = new PaymentSaveResponse
             {

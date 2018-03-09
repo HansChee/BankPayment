@@ -52,7 +52,8 @@ namespace BankPayment.Test
         [TestMethod]
         public void TestConfig()
         {
-            string path = ConfigurationManager.AppSettings["filePath"];
+            //string path = ConfigurationManager.AppSettings["filePath"];
+            string path = ConfigurationHelper.GetSetting("filePath");
             Assert.AreEqual(path, "//Uploaded");
         }
     }
