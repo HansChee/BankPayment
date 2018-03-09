@@ -27,7 +27,7 @@ export class PaymentComponent {
 }
 interface IPaymentInfo {
     BSB?: string;
-    AccountNumber?: number;
+    AccountNumber?: string;
     AccountName?: string;
     Reference?: string;
     Amount?: number

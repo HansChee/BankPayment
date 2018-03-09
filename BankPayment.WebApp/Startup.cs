@@ -23,7 +23,8 @@ namespace BankPayment.WebApp
             services.AddMvc();
 
             // Add application services.
-            services.AddTransient<ISaver, TextSaver>();
+            services.AddSingleton<ISaver, TextSaver>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

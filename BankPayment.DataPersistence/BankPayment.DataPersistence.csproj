@@ -5,7 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BankPayment.Models\BankPayment.Models.csproj" />
+    <ProjectReference Include="..\BankPayment.Utility\BankPayment.Utility.csproj" />
   </ItemGroup>
 
 </Project>

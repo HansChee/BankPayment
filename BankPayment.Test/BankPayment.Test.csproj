@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BankPayment.Models\BankPayment.Models.csproj" />
+    <ProjectReference Include="..\BankPayment.Utility\BankPayment.Utility.csproj" />
     <ProjectReference Include="..\BankPayment.WebApp\BankPayment.WebApp.csproj" />
   </ItemGroup>
 

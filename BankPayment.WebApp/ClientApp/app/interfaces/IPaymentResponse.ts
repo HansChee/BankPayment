@@ -1,3 +1,3 @@
 ﻿interface IPaymentResponse extends IJsonResponse {
-    whatever?: string;
+    TashMessage?: string;
 }
