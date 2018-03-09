@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using BankPayment.DataPersistence;
+using BankPayment.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -23,6 +21,9 @@ namespace BankPayment.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            // Add application services.
+            services.AddTransient<ISaver, TextSaver>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

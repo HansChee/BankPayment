@@ -17,7 +17,7 @@ export class PaymentComponent {
 
     submitPayment = () => {
         console.log(this.paymentInfo);
-        this.commonService.postJson('./api/SampleData/SavePayment'
+        this.commonService.postJson('./api/WhatEver/SavePayment'
             , this.paymentInfo
             , (val) => {
                 let res = val.json();
