@@ -1,6 +1,7 @@
 ﻿using BankPayment.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.IO;
 
 namespace BankPayment.WebApp.Controllers
@@ -23,13 +24,26 @@ namespace BankPayment.WebApp.Controllers
         [HttpPost("[action]")]
         public PaymentSaveResponse SavePayment([FromBody]PaymentInfo paymentInfo)
         {
-            string folder = Directory.GetCurrentDirectory();
-            var result = saver.SavePaymentInfo(paymentInfo);
-            PaymentSaveResponse psr = new PaymentSaveResponse
+            PaymentSaveResponse psr = null;
+            if (ModelState.IsValid)
             {
-                Success = result.Success,
-                Errors = result.Information
-            };
+                var result = saver.SavePaymentInfo(paymentInfo);
+
+                psr = new PaymentSaveResponse
+                {
+                    Success = result.Success,
+                    Errors = result.Information
+                };
+            }
+            else
+            {
+                psr = new PaymentSaveResponse
+                {
+                    Success = false,
+                    Errors = new List<string> { "Invalid Fields" }
+                };
+            }
+
             return psr;
         }
     }

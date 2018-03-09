@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace BankPayment.Test
 {
     [TestClass]
-    public class TestSampleDataController
+    public class TestWhatEverController
     {
         [TestMethod]
         public void TestSavePayment()
@@ -21,6 +21,13 @@ namespace BankPayment.Test
                 AccountName = "account name is here",
                 AccountNumber = "what's the number",
                 Reference = "take reference"
+            };
+            paymentInfo = new PaymentInfo
+            {
+                BSB = "123-456",
+                AccountName = "account name is here",
+                AccountNumber = "1234567",
+                Amount = 1238
             };
             PaymentSaveResponse response = ctrl.SavePayment(paymentInfo);
             PaymentSaveResponse result = new PaymentSaveResponse
