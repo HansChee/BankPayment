@@ -14,11 +14,7 @@ namespace BankPayment.DataPersistence
 
         public BpActionResult SavePaymentInfo(PaymentInfo paymentInfo)
         {
-            var result = new BpActionResult
-            {
-                Success = true,
-                Information = new List<string> { "Winner winner, chicken dinner." }
-            };
+            BpActionResult result = null;
             try
             {
                 string fileName = Guid.NewGuid().ToString();

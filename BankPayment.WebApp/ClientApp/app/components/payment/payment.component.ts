@@ -65,13 +65,15 @@ export class PaymentComponent {
         }
     }
 }
-interface IPaymentInfo {
+interface IAntiForgery {
+    __RequestVerificationToken?: string;
+}
+interface IPaymentInfo extends IAntiForgery {
     bsb?: string;
     accountNumber?: string;
     accountName?: string;
     reference?: string;
-    amount?: number;
-    __RequestVerificationToken?: string;
+    amount?: number;    
 }
 interface IJsonResponse {
     success?: boolean;
