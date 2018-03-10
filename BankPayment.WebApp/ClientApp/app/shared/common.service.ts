@@ -24,4 +24,30 @@ export class CommonService {
             , options
         ).subscribe(next, error, complete);
     }
+
+    postForm = (
+        url: string
+        , obj: any
+        , next?: (value: Response) => void
+        , error?: (error: any) => void
+        , complete?: () => void) => {
+        let options = new RequestOptions({
+            headers: new Headers({
+                "Content-Type": "application/x-www-form-urlencoded"
+            })
+        });
+        this.http.post(url
+            , encodeURI(this.convertObjectToParams(obj))
+            , options
+        ).subscribe(next, error, complete);
+    }
+
+    convertObjectToParams = (obj: any): string => {
+        let params = Object.keys(obj).reduce(function (params, key) {
+            params.set(key, obj[key]);
+            return params;
+        }, new URLSearchParams()).toString();
+
+        return params;
+    }
 }

@@ -26,8 +26,7 @@ export class PaymentComponent {
             'amount': [null, Validators.compose([
                 Validators.required
                 , Validators.min(1)
-            ])],
-            'validate': ''
+            ])]
         });
     }
 
@@ -36,27 +35,42 @@ export class PaymentComponent {
     submitPayment = () => {
         if (this.formGroup.valid) {
             this.paymentInfo = {
-                BSB: this.formGroup.controls['bsb'].value as string,
-                AccountName: this.formGroup.controls['accountName'].value as string,
-                AccountNumber: this.formGroup.controls['accountNumber'].value as string,
-                Reference: this.formGroup.controls['reference'].value as string,
-                Amount: this.formGroup.controls['amount'].value as number
+                bsb: this.formGroup.controls['bsb'].value as string,
+                accountName: this.formGroup.controls['accountName'].value as string,
+                accountNumber: this.formGroup.controls['accountNumber'].value as string,
+                reference: this.formGroup.controls['reference'].value as string,
+                amount: this.formGroup.controls['amount'].value as number
             }
-            console.log(this.paymentInfo);
-            this.commonService.postJson('./api/WhatEver/SavePayment'
+
+            let tokens = document.getElementsByName('__RequestVerificationToken');
+            let token: string | null = null;
+            if (tokens.length > 0) {
+                token = tokens.item(0).getAttribute('value');
+                this.paymentInfo.__RequestVerificationToken = token == null ? '' : token.toString();
+            }
+            this.commonService.postForm('./api/WhatEver/SavePayment'
                 , this.paymentInfo
                 , (val) => {
-                    let res = val.json();
-                    console.log(res);
+                    let res = val.json() as IPaymentSaveResponse;
+                    if (res.success) {
+                        console.log((res.errors as string[])[0]);
+                    } else {
+                        console.error(res.errors);
+                    }
                 });
         }
     }
 }
 interface IPaymentInfo {
-    BSB?: string;
-    AccountNumber?: string;
-    AccountName?: string;
-    Reference?: string;
-    Amount?: number
+    bsb?: string;
+    accountNumber?: string;
+    accountName?: string;
+    reference?: string;
+    amount?: number;
+    __RequestVerificationToken?: string;
 }
-
+interface IPaymentSaveResponse {
+    extraMessage?: string;
+    success?: boolean;
+    errors?: string[];
+}

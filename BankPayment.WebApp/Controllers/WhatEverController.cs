@@ -22,7 +22,8 @@ namespace BankPayment.WebApp.Controllers
         }
 
         [HttpPost("[action]")]
-        public PaymentSaveResponse SavePayment([FromBody]PaymentInfo paymentInfo)
+        [ValidateAntiForgeryToken]
+        public PaymentSaveResponse SavePayment([FromForm]PaymentInfo paymentInfo)
         {
             PaymentSaveResponse psr = null;
             if (ModelState.IsValid)

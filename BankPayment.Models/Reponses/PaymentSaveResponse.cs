@@ -2,6 +2,6 @@
 {
     public class PaymentSaveResponse : BaseJsonResponse
     {
-        public string TrashMessage { get; set; }
+        public string ExtraMessage { get; set; }
     }
 }
