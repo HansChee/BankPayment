@@ -1,33 +1,33 @@
 ﻿<div class="col-md-12 payment-container">
     <div class="col-md-12 text-center payment-title">Payment Details</div>
     <form [formGroup]="formGroup">
-        <div class="col-md-5 col-sm-2 text-right payment-label">BSB:</div>
-        <div class="col-md-7 col-sm-10">
+        <div class="col-md-5 col-sm-3 col-xs-12 payment-label">BSB:</div>
+        <div class="col-md-7 col-sm-9">
             <input type="text" formControlName="bsb" />
         </div>
         <div class="col-md-12 payment-warning" *ngIf="!formGroup.controls['bsb'].valid && formGroup.controls['bsb'].touched">Can't Be Empty, Pattern: xxx-xxx, x Is A Number</div>
-        <div class="col-md-5 col-sm-4 text-right payment-label">Account Number:</div>
-        <div class="col-md-7 col-sm-8">
+        <div class="col-md-5 col-sm-3 payment-label">Account Number:</div>
+        <div class="col-md-7 col-sm-9">
             <input type="text" formControlName="accountNumber" />
         </div>
         <div class="col-md-12 payment-warning" *ngIf="!formGroup.controls['accountNumber'].valid && formGroup.controls['accountNumber'].touched">Can't Be Empty, Only Contains Numbers</div>
-        <div class="col-md-5 col-sm-2 text-right payment-label">Account Name:</div>
-        <div class="col-md-7 col-sm-10">
+        <div class="col-md-5 col-sm-3 payment-label">Account Name:</div>
+        <div class="col-md-7 col-sm-9">
             <input type="text" formControlName="accountName" />
         </div>
         <div class="col-md-12 payment-warning" *ngIf="!formGroup.controls['accountName'].valid && formGroup.controls['accountName'].touched">Can't Be Empty</div>
-        <div class="col-md-5 col-sm-2 text-right payment-label">Reference:</div>
-        <div class="col-md-7 col-sm-10">
+        <div class="col-md-5 col-sm-3 payment-label">Reference:</div>
+        <div class="col-md-7 col-sm-9">
             <input type="text" formControlName="reference" maxlength="20" />
         </div>
         <div class="col-md-12 payment-warning" *ngIf="!formGroup.controls['reference'].valid && formGroup.controls['reference'].touched">Max Length 20</div>
-        <div class="col-md-5 col-sm-2 text-right payment-label">Amount:</div>
-        <div class="col-md-7 col-sm-10">
+        <div class="col-md-5 col-sm-3 payment-label">Amount:</div>
+        <div class="col-md-7 col-sm-9">
             <input type="number" formControlName="amount" />
         </div>
         <div class="col-md-12 payment-warning" *ngIf="!formGroup.controls['amount'].valid && formGroup.controls['amount'].touched">Min Amount 1</div>
-        <div class="col-md-5"></div>
-        <div class="col-md-7">
+        <div class="col-md-5 col-sm-3"></div>
+        <div class="col-md-7 col-sm-9">
             <button id="btnSubmit" [disabled]="!formGroup.valid" (click)="submitPayment()">Submit</button>
         </div>
     </form>

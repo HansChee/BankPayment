@@ -10,12 +10,28 @@ import { CommonService } from '../../shared/common.service';
 export class PaymentComponent {
     formGroup: FormGroup;
 
+    initPayment() {
+        let tokens = document.getElementsByName('__RequestVerificationToken');
+        let token: string | null = null;
+        if (tokens.length > 0) {
+            token = tokens.item(0).getAttribute('value');
+        }
+        this.paymentInfo = {
+            bsb: this.formGroup.controls['bsb'].value as string,
+            accountName: this.formGroup.controls['accountName'].value as string,
+            accountNumber: this.formGroup.controls['accountNumber'].value as string,
+            reference: this.formGroup.controls['reference'].value as string,
+            amount: this.formGroup.controls['amount'].value as number,
+            __RequestVerificationToken: token == null ? '' : token.toString()
+        }
+    }
+
     constructor(private formBuilder: FormBuilder
         , private commonService: CommonService) {
         this.formGroup = formBuilder.group({
             'bsb': [null, Validators.compose([
                 Validators.required
-                , Validators.pattern(/\d{3}-\d{3}/)
+                , Validators.pattern(/^\d{3}-\d{3}$/)
             ])],
             'accountNumber': [null, Validators.compose([
                 Validators.required
@@ -30,24 +46,12 @@ export class PaymentComponent {
         });
     }
 
-    paymentInfo: IPaymentInfo = {};
+    paymentInfo: IPaymentInfo;
 
     submitPayment = () => {
         if (this.formGroup.valid) {
-            this.paymentInfo = {
-                bsb: this.formGroup.controls['bsb'].value as string,
-                accountName: this.formGroup.controls['accountName'].value as string,
-                accountNumber: this.formGroup.controls['accountNumber'].value as string,
-                reference: this.formGroup.controls['reference'].value as string,
-                amount: this.formGroup.controls['amount'].value as number
-            }
-
-            let tokens = document.getElementsByName('__RequestVerificationToken');
-            let token: string | null = null;
-            if (tokens.length > 0) {
-                token = tokens.item(0).getAttribute('value');
-                this.paymentInfo.__RequestVerificationToken = token == null ? '' : token.toString();
-            }
+            this.initPayment();
+            //console.log(this.paymentInfo);
             this.commonService.postForm('./api/WhatEver/SavePayment'
                 , this.paymentInfo
                 , (val) => {
@@ -69,8 +73,10 @@ interface IPaymentInfo {
     amount?: number;
     __RequestVerificationToken?: string;
 }
-interface IPaymentSaveResponse {
-    extraMessage?: string;
+interface IJsonResponse {
     success?: boolean;
     errors?: string[];
+}
+interface IPaymentSaveResponse extends IJsonResponse {
+    extraMessage?: string;
 }

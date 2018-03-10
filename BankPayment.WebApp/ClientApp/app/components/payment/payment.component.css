@@ -16,6 +16,13 @@
     padding: 5px 0;
 }
 
+@media only screen and (min-width : 768px) {
+    .payment-label {
+        text-align: right;
+    }
+}
+
+
 .payment-warning {
     color: red;
 }
