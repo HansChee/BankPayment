@@ -1,7 +1,7 @@
 ﻿.payment-container {
 }
 
-    .payment-container input[type=text] {
+    .payment-container input[type=text], .payment-container input[type=number] {
         height: 24px;
         margin: 5px 10px;
     }
@@ -14,4 +14,8 @@
 
 .payment-label {
     padding: 5px 0;
+}
+
+.payment-warning {
+    color: red;
 }

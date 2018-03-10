@@ -10,6 +10,7 @@ namespace BankPayment.Models
         [RegularExpression(@"^\d{3}-\d{3}$")]
         public string BSB { get; set; }
         [Required]
+        [RegularExpression(@"^\d+$")]
         public string AccountNumber { get; set; }
         [Required]
         public string AccountName { get; set; }

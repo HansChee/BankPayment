@@ -17,5 +17,17 @@ namespace BankPayment.Test
             input = "43254";
             Assert.AreEqual(true, reg.Match(input).Success);
         }
+
+        [TestMethod]
+        public void TestRegExpression2()
+        {
+            string expression = @"^\d+$";
+
+            Regex reg = new Regex(expression);
+            string input = "312-345";
+            input = "fdsea";
+            input = "43254";
+            Assert.AreEqual(true, reg.Match(input).Success);
+        }
     }
 }
