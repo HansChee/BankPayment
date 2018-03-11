@@ -26,6 +26,7 @@
             <input type="number" formControlName="amount" />
         </div>
         <div class="col-md-12 payment-warning" *ngIf="!formGroup.controls['amount'].valid && formGroup.controls['amount'].touched">Min Amount 1</div>
+        <div class="col-md-12 payment-message {{messageStyle}}">{{returnMessage}}</div>
         <div class="col-md-5 col-sm-3"></div>
         <div class="col-md-7 col-sm-9">
             <button id="btnSubmit" [disabled]="!formGroup.valid" (click)="submitPayment()">Submit</button>
