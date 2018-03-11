@@ -37,7 +37,7 @@ export class PaymentComponent {
             if (tokens.length > 0) {
                 token = tokens.item(0).getAttribute('value');
             }
-            
+
             this.paymentInfo = {
                 bsb: controls['bsb'].value as string,
                 accountName: controls['accountName'].value as string,
@@ -80,7 +80,7 @@ export class PaymentComponent {
     submitPayment = () => {
         if (this.formGroup.valid) {
             this.initPayment(false);
-            //console.log(this.paymentInfo);
+            
             this.commonService.postForm('./api/WhatEver/SavePayment'
                 , this.paymentInfo
                 , (val) => {
@@ -89,12 +89,16 @@ export class PaymentComponent {
                     this.messageStyle = this.MessageStyles.get(res.success);
                     if (res.success) {
                         console.log((res.errors as string[])[0]);
-                        // todo
+                        
                         this.initPayment(true);
                     } else {
                         console.error(res.errors);
                         // todo
                     }
+                }
+                , (err) => {
+                    console.error(err);
+                    // todo
                 });
         }
     }
