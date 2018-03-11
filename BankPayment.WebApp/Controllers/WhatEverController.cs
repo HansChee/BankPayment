@@ -1,34 +1,32 @@
 ﻿using BankPayment.Models;
+using log4net;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using System.IO;
 
 namespace BankPayment.WebApp.Controllers
 {
     [Route("api/[controller]")]
     public class WhatEverController : Controller
     {
-        ISaver saver;
+        static ISaver Saver;
+        static readonly ILog log = LogManager.GetLogger(typeof(HomeController));
 
         public WhatEverController(ISaver saver)
         {
-            this.saver = saver;
-        }
-
-        public string Get()
-        {
-            return "Here comes the message.";
+            log.Info("Enter WhatEvet constructor");
+            Saver = saver;
         }
 
         [HttpPost("[action]")]
         [ValidateAntiForgeryToken]
         public PaymentSaveResponse SavePayment([FromForm]PaymentInfo paymentInfo)
         {
+            log.Info("Enter SavePayment");
             PaymentSaveResponse psr = null;
             if (ModelState.IsValid)
             {
-                var result = saver.SavePaymentInfo(paymentInfo);
+                log.Info("ModelState is valid, begin to save");
+                var result = Saver.SavePaymentInfo(paymentInfo);
 
                 psr = new PaymentSaveResponse
                 {
@@ -38,6 +36,7 @@ namespace BankPayment.WebApp.Controllers
             }
             else
             {
+                log.Info("Model is NOT valid, return message.");
                 psr = new PaymentSaveResponse
                 {
                     Success = false,

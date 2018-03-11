@@ -19,8 +19,9 @@ export class PaymentComponent {
 
     set returnMessage(msg: string) {
         this._returnMessage = msg;
-        setTimeout(() => {
+        setTimeout(() => {            
             this._returnMessage = '';
+            console.log('Return message cleared');
         }, 2000);
     }
 
@@ -30,13 +31,17 @@ export class PaymentComponent {
 
     initPayment(clearFrom: boolean) {
         let controls = this.formGroup.controls as { [key: string]: AbstractControl };
+        console.log('controls status: ');
+        console.log(controls);
 
         if (!clearFrom) {
+            console.log('Get form values from controls');
             let tokens = document.getElementsByName('__RequestVerificationToken');
             let token: string | null = null;
             if (tokens.length > 0) {
                 token = tokens.item(0).getAttribute('value');
             }
+            console.log('Got anti forgety token: ', token);
 
             this.paymentInfo = {
                 bsb: controls['bsb'].value as string,
@@ -46,7 +51,10 @@ export class PaymentComponent {
                 amount: controls['amount'].value as number,
                 __RequestVerificationToken: token == null ? '' : token.toString()
             }
+            console.log('Got form values from controls: ');
+            console.log(this.paymentInfo);
         } else {
+            console.log('Clear form and model');
             this.paymentInfo = {};
             this.formGroup.reset();
         }
@@ -70,26 +78,33 @@ export class PaymentComponent {
                 , Validators.min(1)
             ])]
         });
+        console.log('Form group initialized');
 
         this.MessageStyles.set(true, 'payment-success');
         this.MessageStyles.set(false, 'payment-warning');
+        console.log('Message style initialized');
     }
 
     paymentInfo: IPaymentInfo;
 
     submitPayment = () => {
         if (this.formGroup.valid) {
+            console.log('Form group is valid');
+
             this.initPayment(false);
-            
+
             this.commonService.postForm('./api/WhatEver/SavePayment'
                 , this.paymentInfo
                 , (val) => {
                     let res = val.json() as IPaymentSaveResponse;
+                    console.log('Response: ');
+                    console.log(res);
                     this.returnMessage = (res.errors as string[])[0];
                     this.messageStyle = this.MessageStyles.get(res.success);
                     if (res.success) {
+                        console.log('Got response: ');
                         console.log((res.errors as string[])[0]);
-                        
+
                         this.initPayment(true);
                     } else {
                         console.error(res.errors);
