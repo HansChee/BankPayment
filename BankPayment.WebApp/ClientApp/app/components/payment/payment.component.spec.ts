@@ -28,7 +28,13 @@ describe('payment component', () => {
         component = fixture.componentInstance;
     }));
 
-    it('should do something', async(() => {
-        expect(true).toEqual(true);
+    it('test initPayment_true', async(() => {
+        component.initPayment(true);
+        expect({}).toEqual(component.paymentInfo);
+    }));
+
+    it('test initPayment_false', async(() => {
+        component.initPayment(false);
+        expect({}).toEqual(component.paymentInfo);
     }));
 });
