@@ -1,15 +1,18 @@
+using BankPayment.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BankPayment.WebApp.Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
-        private static string[] Summaries = new[]
+        private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
@@ -26,19 +29,30 @@ namespace BankPayment.WebApp.Controllers
             });
         }
 
-        public class WeatherForecast
+        [HttpPost("[action]")]
+        public async Task<IActionResult> UploadFiles(Deatil deatil, List<IFormFile> files)
         {
-            public string DateFormatted { get; set; }
-            public int TemperatureC { get; set; }
-            public string Summary { get; set; }
+            long size = files.Sum(f => f.Length);
 
-            public int TemperatureF
+            // full path to file in temp location
+            var filePath = Path.GetTempFileName();
+
+            foreach (var formFile in files)
             {
-                get
+                if (formFile.Length > 0)
                 {
-                    return 32 + (int)(TemperatureC / 0.5556);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await formFile.CopyToAsync(stream);
+                    }
                 }
             }
+
+            // process uploaded files
+            // Don't rely on or trust the FileName property without validation.
+
+            return Ok(deatil);
+
         }
     }
 }

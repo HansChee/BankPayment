@@ -8,8 +8,19 @@ namespace BankPayment.Utility
     /*
      * From https://www.codeproject.com/Articles/14150/Encrypt-and-Decrypt-Data-with-C, Modified.
      */
+
+    /// <summary>
+    /// Encrypts or decrypts a string
+    /// </summary>
     public class SecurityHelper
     {
+        /// <summary>
+        /// Encrypt a string object
+        /// </summary>
+        /// <param name="toEncrypt">string to eccrypt</param>
+        /// <param name="key">security key</param>
+        /// <param name="useHashing">use hashing to encrypt</param>
+        /// <returns>the encrypted string</returns>
         public static string Encrypt(string toEncrypt, string key, bool useHashing = true)
         {
             byte[] keyArray;
@@ -50,6 +61,13 @@ namespace BankPayment.Utility
             return Convert.ToBase64String(resultArray, 0, resultArray.Length);
         }
 
+        /// <summary>
+        /// Decrypt a string object
+        /// </summary>
+        /// <param name="cipherString">encrypted string</param>
+        /// <param name="key">security key</param>
+        /// <param name="useHashing">use hashing to decrypt</param>
+        /// <returns>the decrypted string</returns>
         public static string Decrypt(string cipherString, string key, bool useHashing = true)
         {
             byte[] keyArray;
