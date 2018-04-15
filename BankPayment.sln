@@ -8,9 +8,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankPayment.Test", "BankPay
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankPayment.Models", "BankPayment.Models\BankPayment.Models.csproj", "{C4862374-D40D-48E7-82FA-65CC0EE11224}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankPayment.DataPersistence", "BankPayment.DataPersistence\BankPayment.DataPersistence.csproj", "{A8BBB307-3FBB-4ABA-A2BA-61D0F1B3BCA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankPayment.DataPersistence", "BankPayment.DataPersistence\BankPayment.DataPersistence.csproj", "{A8BBB307-3FBB-4ABA-A2BA-61D0F1B3BCA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankPayment.Utility", "BankPayment.Utility\BankPayment.Utility.csproj", "{3EF7C5F4-3319-40FD-BC3B-C2168E4B3A3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankPayment.Utility", "BankPayment.Utility\BankPayment.Utility.csproj", "{3EF7C5F4-3319-40FD-BC3B-C2168E4B3A3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{41E4F0DE-0D4E-4ED9-8416-C3F91B49CBEF}"
+	ProjectSection(SolutionItems) = preProject
+		full-stack-developer-coding-test.md = full-stack-developer-coding-test.md
+		ReadMe.md = ReadMe.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
